@@ -2,144 +2,1072 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Connecting the Dots: Technology, People, and Society in the Quantum Era</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connecting the Dots: Technology, People, and Society in the Quantum Era</title>
+  <meta
+    name="description"
+    content="A QCNC 2026 workshop on quantum futures, public engagement, and how to unlock meaningful discussion around quantum applications."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --accent: #111827;
-      --max-width: 900px;
+      --bg: #f6f3ec;
+      --surface: rgba(255, 255, 255, 0.72);
+      --surface-strong: #fffdf9;
+      --line: rgba(18, 32, 56, 0.12);
+      --text: #102038;
+      --muted: #5d697d;
+      --navy: #102038;
+      --teal: #0e8d8d;
+      --gold: #f2a93b;
+      --coral: #ec6b4f;
+      --hero-shadow: 0 30px 80px rgba(16, 32, 56, 0.16);
+      --card-shadow: 0 22px 60px rgba(16, 32, 56, 0.12);
+      --max-width: 1180px;
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
       color: var(--text);
+      font-family: "Noto Sans JP", sans-serif;
       line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(236, 107, 79, 0.16), transparent 32%),
+        radial-gradient(circle at 85% 20%, rgba(14, 141, 141, 0.2), transparent 30%),
+        linear-gradient(180deg, #fbf8f2 0%, #f2efe8 42%, #fbfaf7 100%);
     }
 
-    header {
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    ::selection {
+      background: rgba(236, 107, 79, 0.18);
+    }
+
+    .page-shell {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      border-radius: 999px;
+      filter: blur(8px);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .page-shell::before {
+      width: 360px;
+      height: 360px;
+      top: -90px;
+      right: -120px;
+      background: rgba(242, 169, 59, 0.18);
+    }
+
+    .page-shell::after {
+      width: 280px;
+      height: 280px;
+      bottom: 10%;
+      left: -80px;
+      background: rgba(14, 141, 141, 0.15);
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .glass {
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: var(--card-shadow);
+    }
+
+    .site-header {
       position: sticky;
       top: 0;
-      background: #ffffffcc;
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid #e5e7eb;
-      z-index: 10;
+      z-index: 50;
+      padding: 1rem 0;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .nav {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 1rem 1.25rem;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 1.2rem;
+      border-radius: 999px;
     }
 
-    .nav-left {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.9rem;
+      min-width: 0;
     }
 
-    .nav-icon {
-      width: 60px;
+    .brand img {
+      width: 54px;
       height: auto;
+      flex-shrink: 0;
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-kicker,
+    .eyebrow {
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: var(--teal);
+    }
+
+    .brand-title {
+      margin: 0.15rem 0 0;
+      font-size: 0.92rem;
+      font-weight: 800;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .nav-links a {
-      margin-left: 1.5rem;
       text-decoration: none;
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
+      transition: color 180ms ease, transform 180ms ease;
     }
 
-    .nav-links a:hover { color: var(--accent); }
-
-    main {
-      max-width: var(--max-width);
-      margin: 2.5rem auto 3rem;
-      padding: 0 1.25rem;
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--navy);
+      transform: translateY(-1px);
     }
 
-    h1, h2, h3 {
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      color: var(--accent);
+    .hero {
+      padding: 2rem 0 3.5rem;
     }
 
-    p { margin: 0 0 1rem; font-size: 0.98rem; }
+    .hero-panel {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
+      gap: 1.5rem;
+      padding: clamp(1.4rem, 2.6vw, 2.2rem);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--hero-shadow);
+    }
 
-    .meta {
-      font-size: 0.9rem;
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(140deg, rgba(16, 32, 56, 0.98), rgba(16, 32, 56, 0.82) 48%, rgba(14, 141, 141, 0.82) 100%);
+      z-index: -2;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(242, 169, 59, 0.28), transparent 28%),
+        radial-gradient(circle at 82% 24%, rgba(236, 107, 79, 0.18), transparent 24%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.08), transparent 24%);
+      z-index: -1;
+    }
+
+    .hero-copy {
+      color: #f7f5ef;
+      padding: 0.4rem;
+    }
+
+    .hero-copy h1 {
+      margin: 0.75rem 0 1rem;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5.25rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      max-width: 11ch;
+    }
+
+    .hero-copy .title-tail {
+      display: block;
+      font-size: clamp(1rem, 2vw, 1.45rem);
+      line-height: 1.45;
+      letter-spacing: 0;
+      color: rgba(247, 245, 239, 0.88);
+      max-width: 28ch;
+      margin-top: 0.9rem;
+      font-family: "Noto Sans JP", sans-serif;
+      font-weight: 500;
+    }
+
+    .hero-summary {
+      max-width: 62ch;
+      margin: 0 0 1.6rem;
+      color: rgba(247, 245, 239, 0.82);
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 50px;
+      padding: 0.85rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, var(--gold), #ffc96f);
+      color: var(--navy);
+      box-shadow: 0 18px 40px rgba(242, 169, 59, 0.32);
+    }
+
+    .button-secondary {
+      border-color: rgba(255, 255, 255, 0.18);
+      color: #f7f5ef;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .tag {
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(247, 245, 239, 0.88);
+      font-size: 0.88rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 1rem;
+      align-content: start;
+    }
+
+    .hero-card {
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      background: rgba(248, 246, 240, 0.96);
+      color: var(--navy);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 0.95rem;
+      margin: 1rem 0 0;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 0.95rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .meta-row:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .meta-label {
       color: var(--muted);
-      margin-bottom: 1.5rem;
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: "Space Grotesk", sans-serif;
     }
 
-    ul { margin: 0 0 1rem 1.2rem; }
+    .meta-value {
+      text-align: right;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .hero-note {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-note::after {
+      content: "";
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      top: -36px;
+      right: -36px;
+      background: radial-gradient(circle, rgba(14, 141, 141, 0.18), transparent 70%);
+      border-radius: 999px;
+    }
+
+    .hero-note h2,
+    .hero-card h2,
+    .section-header h2,
+    .section h2 {
+      margin: 0 0 0.75rem;
+      font-family: "Space Grotesk", sans-serif;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-note ul,
+    .section ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    .hero-note li + li,
+    .section li + li {
+      margin-top: 0.45rem;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: -1.3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .metric {
+      padding: 1.1rem 1.15rem;
+      border-radius: var(--radius-lg);
+    }
+
+    .metric-value {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+      color: var(--navy);
+    }
+
+    .metric-label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .section {
+      padding: 1.6rem 0 0.5rem;
+    }
+
+    .section-panel {
+      padding: clamp(1.2rem, 2vw, 2rem);
+      border-radius: var(--radius-xl);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-header p {
+      margin: 0;
+      max-width: 56ch;
+      color: var(--muted);
+    }
+
+    .impact-grid,
+    .submission-grid,
+    .organizer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .impact-card,
+    .submission-card,
+    .organizer-card {
+      padding: 1.3rem;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 253, 249, 0.88);
+      border: 1px solid var(--line);
+    }
+
+    .impact-card h3,
+    .submission-card h3,
+    .organizer-card h3,
+    .program-grid h3,
+    .invited-card h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.1rem;
+      font-family: "Space Grotesk", sans-serif;
+      line-height: 1.2;
+    }
+
+    .impact-card p,
+    .submission-card p,
+    .organizer-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .impact-card-wide {
+      grid-column: span 2;
+    }
+
+    .program-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(290px, 0.85fr);
+      gap: 1rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 124px minmax(0, 1fr);
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.05rem;
+      border-radius: 20px;
+      background: rgba(255, 253, 249, 0.9);
+      border: 1px solid var(--line);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(16, 32, 56, 0.08);
+    }
+
+    .timeline-time {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-family: "Space Grotesk", sans-serif;
+      background: rgba(16, 32, 56, 0.92);
+      color: #f7f5ef;
+      font-size: 0.9rem;
+    }
+
+    .timeline-body strong {
+      display: block;
+      margin-bottom: 0.18rem;
+      font-size: 1rem;
+    }
+
+    .timeline-body p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .program-side {
+      display: grid;
+      gap: 1rem;
+      align-content: start;
+    }
+
+    .info-card {
+      padding: 1.25rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(16, 32, 56, 0.98), rgba(16, 32, 56, 0.92));
+      color: #f7f5ef;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -80px auto;
+      width: 190px;
+      height: 190px;
+      background: radial-gradient(circle, rgba(242, 169, 59, 0.22), transparent 68%);
+      border-radius: 999px;
+    }
+
+    .info-card p,
+    .info-card li {
+      color: rgba(247, 245, 239, 0.82);
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(236, 107, 79, 0.12);
+      color: #a63a28;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .invited-card {
+      padding: clamp(1.2rem, 2vw, 1.9rem);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(255, 253, 249, 0.98), rgba(250, 246, 238, 0.98)),
+        #fff;
+      border: 1px solid var(--line);
+      box-shadow: var(--card-shadow);
+    }
+
+    .invited-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .speaker-line {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .invited-abstract {
+      margin-top: 1rem;
+      padding: 1.2rem;
+      border-radius: var(--radius-lg);
+      background: rgba(16, 32, 56, 0.04);
+      border: 1px solid rgba(16, 32, 56, 0.08);
+    }
+
+    .invited-abstract pre {
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: inherit;
+      font-size: 0.98rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .topic-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .topic-item {
+      padding: 1rem;
+      border-radius: 20px;
+      background: rgba(255, 253, 249, 0.88);
+      border: 1px solid var(--line);
+    }
+
+    .topic-item strong {
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .organizer-card strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .footer {
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .fade-in {
+      animation: fadeInUp 700ms ease both;
+    }
+
+    .delay-1 {
+      animation-delay: 80ms;
+    }
+
+    .delay-2 {
+      animation-delay: 160ms;
+    }
+
+    .delay-3 {
+      animation-delay: 240ms;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1040px) {
+      .hero-panel,
+      .program-grid,
+      .impact-grid,
+      .submission-grid,
+      .organizer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .impact-card-wide {
+        grid-column: auto;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+      .site-header {
+        position: static;
+      }
+
+      .nav {
+        border-radius: 28px;
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: start;
+      }
+
+      .hero-copy h1 {
+        max-width: none;
+      }
+
+      .section-header,
+      .invited-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .topic-list {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-time {
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        line-height: 1.6;
+      }
+
+      .container {
+        width: min(var(--max-width), calc(100% - 1rem));
+      }
+
+      .hero {
+        padding-top: 1rem;
+      }
+
+      .hero-panel,
+      .section-panel,
+      .invited-card {
+        border-radius: 24px;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-title {
+        white-space: normal;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
 <body>
-<header>
-  <div class="nav">
-    <div class="nav-left">
-      <img class="nav-icon" src="QEST_logo_transparent.png" alt="QEST Logo" />
-      <span><b>[Workshop] Connecting the Dots: Technology, People, and Society in the Quantum Era</b></span>
-    </div>
-    <nav class="nav-links">
-      <a href="#abstract">Abstract</a>
-      <a href="#format">Format</a>
-      <a href="#papers">Paper Submission</a>
-      <a href="#program">Program</a>
-      <a href="#organizers">Organizers</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="container">
+        <div class="nav glass">
+          <div class="brand">
+            <img src="QEST_logo_transparent.png" alt="QEST Logo" />
+            <div class="brand-copy">
+              <div class="brand-kicker">QCNC 2026 Workshop</div>
+              <p class="brand-title">Connecting the Dots: Technology, People, and Society in the Quantum Era</p>
+            </div>
+          </div>
 
-    </nav>
-  </div>
-</header>
+          <nav class="nav-links" aria-label="Primary">
+            <a href="#why">Why Attend</a>
+            <a href="#abstract">Abstract</a>
+            <a href="#program">Program</a>
+            <a href="#invited-talk">Invited Talk</a>
+            <a href="#organizers">Organizers</a>
+          </nav>
+        </div>
+      </div>
+    </header>
 
-<main>
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-panel fade-in">
+            <div class="hero-copy">
+              <div class="eyebrow">A room worth choosing in a busy parallel-session day</div>
+              <h1>
+                Connecting the Dots
+                <span class="title-tail">Technology, People, and Society in the Quantum Era</span>
+              </h1>
+              <p class="hero-summary">
+                This workshop creates a focused space to participate in shaping how quantum futures are discussed:
+                not only what applications may emerge, but what conditions, needs, expectations, and concerns make those futures meaningful.
+                We bring together future design, public engagement, and technical perspectives to make that conversation collective.
+              </p>
 
-<section>
-  <div class="meta">
-    <strong>Workshop at:</strong> IEEE International Conference on Quantum Communications, Networking, and Computing (QCNC 2026)<br>
-    <strong>Date:</strong> April 8th, 2026<br>
-    <strong>Location:</strong> Kobe, Japan<br>
-    <strong>Duration:</strong> 3-hour workshop (9:00 AM–12:00 PM, JST)
-  </div>
-</section>
+              <div class="hero-actions">
+                <a class="button button-primary" href="#program">See the Program</a>
+                <a class="button button-secondary" href="#invited-talk">Read the Invited Talk</a>
+              </div>
 
-<section id="abstract">
-  <h1>Workshop Abstract</h1>
-  <p>
-    Quantum technologies are expected to bring about a paradigm shift from the classical technology era to a new era. However, the future shape of quantum-enabled societies remains obscure, highlighting the difficulty of forecasting long-term technological and social change. This workshop brings together individuals interested in exploring futures shaped by quantum technologies.
-  </p>
-  <p>
-    The workshop begins with sharing insights from SF-prototyping workshops conducted by the organizers, exploring visions of 2040. These results illustrate how design approaches can connect quantum technological innovation with social imagination. In the latter part, participants will engage in a group work session to collaboratively envision disruptive ideas and future use cases.
-  </p>
-</section>
+              <div class="hero-tags">
+                <span class="tag">Future Design</span>
+                <span class="tag">Public Engagement</span>
+                <span class="tag">Quantum Applications</span>
+                <span class="tag">Interactive Discussion</span>
+              </div>
+            </div>
 
-<section id="format">
-  <h1>Program</h1>
-  <p>The workshop is designed as a three-hour session:</p>
-  <ul>
-    <li>0-5 min: General Guidance from organizers</li>
-    <li><p>5–45 min: Invited talk by Konomi Higo (Osaka Univ.) and Yusuke Nagato (Osaka Univ.)<br>
-    Title: Future Design for Quantum Technologies toward Effective Public Engagement<br>
-    Abstract: As quantum technology advances toward broader societal implementation,
+            <div class="hero-side fade-in delay-1">
+              <section class="hero-card">
+                <div class="eyebrow">At a Glance</div>
+                <h2>Workshop at QCNC 2026</h2>
+                <div class="hero-meta">
+                  <div class="meta-row">
+                    <span class="meta-label">Conference</span>
+                    <span class="meta-value">IEEE International Conference on Quantum Communications, Networking, and Computing</span>
+                  </div>
+                  <div class="meta-row">
+                    <span class="meta-label">Date</span>
+                    <span class="meta-value">April 8, 2026</span>
+                  </div>
+                  <div class="meta-row">
+                    <span class="meta-label">Time</span>
+                    <span class="meta-value">9:00 AM-12:00 PM JST</span>
+                  </div>
+                  <div class="meta-row">
+                    <span class="meta-label">Location</span>
+                    <span class="meta-value">Kobe, Japan</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="hero-card hero-note">
+                <div class="eyebrow">Why This Session</div>
+                <h2>More than a talk, a working room</h2>
+                <ul>
+                  <li>Hear a keynote that frames quantum futures through future design and public engagement.</li>
+                  <li>Respond to examples, surface your own assumptions, and compare perspectives with others in the room.</li>
+                  <li>Help shape how use cases, enabling conditions, and concerns around quantum technology are discussed.</li>
+                </ul>
+              </section>
+            </div>
+          </div>
+
+          <div class="metrics fade-in delay-2">
+            <div class="metric glass">
+              <span class="metric-value">3h</span>
+              <span class="metric-label">Compact workshop</span>
+            </div>
+            <div class="metric glass">
+              <span class="metric-value">40m</span>
+              <span class="metric-label">Invited framing</span>
+            </div>
+            <div class="metric glass">
+              <span class="metric-value">Live reflection</span>
+              <span class="metric-label">Participant input throughout</span>
+            </div>
+            <div class="metric glass">
+              <span class="metric-value">55m</span>
+              <span class="metric-label">Structured discussion</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="why">
+        <div class="container">
+          <div class="section-panel glass fade-in">
+            <div class="section-header">
+              <div>
+                <div class="eyebrow">Why Attend</div>
+                <h2>A distinctive workshop for people who want quantum to connect with society</h2>
+              </div>
+              <p>
+                Instead of asking only what quantum technologies can technically do, this workshop asks how
+                quantum applications become discussable, meaningful, and socially grounded in the first place.
+              </p>
+            </div>
+
+            <div class="impact-grid">
+              <article class="impact-card">
+                <h3>Reframe the application gap</h3>
+                <p>
+                  We examine why concrete quantum applications remain difficult to articulate and how futures-oriented methods can unlock more productive discussion.
+                </p>
+              </article>
+
+              <article class="impact-card">
+                <h3>Bridge technology and public imagination</h3>
+                <p>
+                  The session connects technical research with questions of engagement, governance, and societal adoption rather than treating them as separate tracks.
+                </p>
+              </article>
+
+              <article class="impact-card">
+                <h3>Leave with sharper ideas</h3>
+                <p>
+                  Participants do not only listen. They co-create scenarios, disruptive ideas, and future use cases that can travel back into research and design practice.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="abstract">
+        <div class="container">
+          <div class="section-panel glass fade-in">
+            <div class="section-header">
+              <div>
+                <div class="eyebrow">Workshop Abstract</div>
+                <h2>The core premise of the session</h2>
+              </div>
+              <p>
+                This is the central framing text of the workshop, retained here so visitors can quickly understand the research and discussion agenda behind the design.
+              </p>
+            </div>
+
+            <div class="impact-grid">
+              <article class="impact-card">
+                <h3>Context</h3>
+                <p>
+                  Quantum technologies are expected to bring about a paradigm shift from the classical technology era to a new era. However, the future shape of quantum-enabled societies remains obscure, highlighting the difficulty of forecasting long-term technological and social change. This workshop brings together individuals interested in exploring futures shaped by quantum technologies.
+                </p>
+              </article>
+
+              <article class="impact-card impact-card-wide">
+                <h3>Workshop approach</h3>
+                <p>
+                  The workshop begins with sharing insights from SF-prototyping workshops conducted by the organizers, exploring visions of 2040. These results illustrate how design approaches can connect quantum technological innovation with social imagination. In the latter part, participants will engage in a group work session to collaboratively envision disruptive ideas and future use cases.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="program">
+        <div class="container">
+          <div class="section-panel glass fade-in">
+            <div class="section-header">
+              <div>
+                <div class="eyebrow">Program</div>
+                <h2>How the workshop unfolds</h2>
+              </div>
+              <p>
+                Rather than a dense agenda, the session is designed as a participant journey: framing the challenge, learning the method, reacting to examples, and building shared discussion around quantum futures.
+              </p>
+            </div>
+
+            <div class="program-grid">
+              <div class="timeline">
+                <article class="timeline-item">
+                  <div class="timeline-time">5 min</div>
+                  <div class="timeline-body">
+                    <strong>Opening the room</strong>
+                    <p>We set the purpose of the workshop: not only explaining quantum technology, but making participants' imagined use cases, needs, and concerns visible.</p>
+                  </div>
+                </article>
+
+                <article class="timeline-item">
+                  <div class="timeline-time">40 min</div>
+                  <div class="timeline-body">
+                    <strong>Invited framing</strong>
+                    <p>The invited talk establishes the future-design and public-engagement lens for discussing quantum technologies.</p>
+                  </div>
+                </article>
+
+                <article class="timeline-item">
+                  <div class="timeline-time">30 min</div>
+                  <div class="timeline-body">
+                    <strong>Learning the method</strong>
+                    <p>We introduce quantum use cases and SF prototyping as a way to backcast the technical, institutional, and social conditions needed for future adoption.</p>
+                  </div>
+                </article>
+
+                <article class="timeline-item">
+                  <div class="timeline-time">30 min</div>
+                  <div class="timeline-body">
+                    <strong>Reacting to examples</strong>
+                    <p>Participants respond to example use cases and reflect on promise, hype, enabling conditions, and concerns through live prompts.</p>
+                  </div>
+                </article>
+
+                <article class="timeline-item">
+                  <div class="timeline-time">55 min</div>
+                  <div class="timeline-body">
+                    <strong>From individual reactions to shared discussion</strong>
+                    <p>We move from personal reflection to peer exchange and structured discussion on use cases, gaps, risks, and the lenses of Hype, Imaginary lock-in, and Infrastructure.</p>
+                  </div>
+                </article>
+
+                <article class="timeline-item">
+                  <div class="timeline-time">20 min</div>
+                  <div class="timeline-body">
+                    <strong>Synthesis and takeaways</strong>
+                    <p>We wrap up the use cases, required conditions, gaps, and risks that emerged, then connect those insights to future discussion.</p>
+                  </div>
+                </article>
+              </div>
+
+              <aside class="program-side">
+                <section class="info-card">
+                  <div class="eyebrow">What Makes It Different</div>
+                  <h3>Built to spark discussion, not just describe technology</h3>
+                  <p>
+                    The workshop integrates future design, application mapping, and shared reflection so that participants actively shape how quantum use cases are interpreted rather than passively receiving a finished narrative.
+                  </p>
+                </section>
+
+                <section class="submission-card">
+                  <div class="eyebrow">Participant Journey</div>
+                  <h3>What Participants Will Do</h3>
+                  <ul>
+                    <li>Imagine concrete quantum use cases</li>
+                    <li>Identify what would be needed to realize them</li>
+                    <li>Compare expectations and concerns across perspectives</li>
+                    <li>Examine gaps and risks through shared discussion</li>
+                  </ul>
+                </section>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="invited-talk">
+        <div class="container">
+          <article class="invited-card fade-in">
+            <div class="invited-head">
+              <div>
+                <div class="eyebrow">Invited Talk</div>
+                <h2>Future Design for Quantum Technologies toward Effective Public Engagement</h2>
+                <div class="speaker-line">Konomi Higo (Osaka Univ.) and Yusuke Nagato (Osaka Univ.)</div>
+              </div>
+              <div class="status-chip">Abstract shown exactly as provided</div>
+            </div>
+
+            <div class="invited-abstract">
+              <pre>As quantum technology advances toward broader societal implementation,
 the need for diverse stakeholders to collaborate and co-create a desirable future for
 quantum technology is becoming increasingly urgent. Indeed, initiatives such as
 outreach activities create opportunities for non-experts to engage with quantum
 technology, and surveys are also being conducted to gauge public awareness.
 However, these examples do not necessarily yield perspectives specific to designing
 quantum technology futures. Rather, they often merely repeat existing concerns
-about established technologies like AI.<br>
+about established technologies like AI.
 This presentation first outlines three issues standing in the way of effective
 citizen participation in quantum technology. First, when experts select information
 regarding societal implementation of quantum technology, the selection itself carries
@@ -149,98 +1077,71 @@ related to excessive expectations or premature socio-technical commitments—are
 often difficult for non-expert citizens to grasp concretely. Third, because quantum
 technology has not yet become widely adopted, we may only be able to imagine its
 future within the limited scope and frameworks based on the development and
-societal implementation of existing technologies.<br>
+societal implementation of existing technologies.
 To navigate these challenges, we propose a conceptual framework
 comprising three elements as analytical lenses: (1) hype—cycles of excessive
 expectation and subsequent disillusionment; (2) imaginary lock-in—the
 phenomenon whereby speculative visions of unrealized technologies constrain
 present-day policy and investment decisions; and (3) infrastructure—the
 irreversibility concerns arising when quantum systems become embedded in critical
-societal foundations.<br>
+societal foundations.
 We propose that recognizing these three challenges and three analytical
 perspectives can serve as a foundation for designing more effective citizen
-deliberation on quantum technology futures.</p>
-    </li>
-    <li>45–75 min: First Contributed Talk</li>
-    <li>75-105 min: Second Contributed Talk</li>
-    <li>105–115 min: Ice-breaking</li>
-    <li>115-160 min: Interactive discussions on future quantum technology use cases</li>
-    <li>160-180 min: Wrap-up </li>
-  </ul>
-  <p>
-    The workshop integrates future design, mapping of quantum applications, and scenario creation. Ideas developed during the workshop will be treated as open outcomes shared for broader community discussion.
-  </p>
+deliberation on quantum technology futures.</pre>
+            </div>
+          </article>
+        </div>
+      </section>
 
-  </section>
-  
-</section>
+      <section class="section" id="organizers">
+        <div class="container">
+          <div class="section-panel glass fade-in">
+            <div class="section-header">
+              <div>
+                <div class="eyebrow">Organizers</div>
+                <h2>The team behind the workshop</h2>
+              </div>
+              <p>
+                Organized by researchers working across quantum technology, design, and societal engagement.
+              </p>
+            </div>
 
-<section id="papers">
-  <h1>Paper Submission</h1>
+            <div class="organizer-grid">
+              <article class="organizer-card">
+                <strong>Reiko Iwasaki</strong>
+                <p>Keio University<br />Main contact; main facilitator</p>
+              </article>
+              <article class="organizer-card">
+                <strong>Takuma Sano</strong>
+                <p>Keio University</p>
+              </article>
+              <article class="organizer-card">
+                <strong>Haruka Shiina</strong>
+                <p>Keio University</p>
+              </article>
+              <article class="organizer-card">
+                <strong>Sho Morishita</strong>
+                <p>Yamanashi Prefecture University</p>
+              </article>
+              <article class="organizer-card">
+                <strong>Akihito Soeda</strong>
+                <p>National Institute of Informatics</p>
+              </article>
+              <article class="organizer-card">
+                <strong>Shota Nagayama</strong>
+                <p>Keio University<br />Corresponding organizer</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
-  <p>We invite <strong>2-3 contributed presentations</strong> for the Paper Session of this workshop. Submissions may address topics related to quantum technologies, human behavior, governance, or future design.</p>
-
-  <h2>Topics of Interest</h2>
-  <ul>
-    <li><strong>Quantum Applications</strong><br>
-      Quantum computing, communication, sensing, and use cases such as quantum × mobility, food, agriculture, healthcare, and infrastructure.</li>
-
-    <li><strong>Behavior Change Enabled by Quantum Technologies</strong><br>
-      Human–technology interaction, adoption of quantum systems, behavior transformation, user-centered perspectives.</li>
-
-    <li><strong>Quantum Policy, Ethics, and Governance</strong><br>
-      Responsible Research and Innovation (RRI), ELSI, governance of quantum networks, societal acceptance of quantum technologies.</li>
-
-    <li><strong>Future Design and SF Prototyping</strong><br>
-      Scenario design, backcasting, SF prototyping, futures of quantum-enabled societies in 2040–2050.</li>
-  </ul>
-    
-  <h2>Submission Guidelines</h2>
-  <ul>
-    <li><strong>Format:</strong> 1–2 page Extended Abstract (PDF)</li>
-    <li><strong>Language:</strong> English</li>
-    <li><strong>Template:</strong> Free format</li>
-   
-    <li><strong>Presentation:</strong> 20 min talk + 10 min Q&A</li>
-    <li><strong>Review:</strong> Review will be provided by reviewres in including organizers</li>
-  </ul>
-
-  <h2>Important Dates</h2>
-  <ul>
-    <li><strong>Submission Deadline:</strong> January 5th</li>
-    <li><strong>Workshop Paper Author Notification:</strong> February 5th</li>
-  </ul>
-</section>
-
-<section id="organizers">
-<ul>
-<li> Reiko Iwasaki (Keio University; main contact; main facilitator)</li>
-<li> Takuma Sano (Keio University)</li>
-<li> Haruka Shiina (Keio University)</li>
-<li> Sho Morishita (Yamanashi Prefecture University)</li>
-<li> Akihito Soeda (National Institute of Informatics)</li>
-<li> Shota Nagayama (Keio University; corresponding organizer)</li>
-</ul>
-</section>
-  
-  </main>
+    <footer class="footer">
+      <div class="container">
+        Workshop mockup for QCNC 2026. Designed to highlight the session's distinct value in a parallel conference program.
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
